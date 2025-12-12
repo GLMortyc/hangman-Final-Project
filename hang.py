@@ -7,6 +7,8 @@ words_5 = ['blood', 'magic', 'super', 'level' ]
 right = []
 
 pygame.init()
+pygame.font.init()
+my_font = pygame.font.SysFont('Times New Roman', 20)
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
@@ -44,6 +46,9 @@ while running:
             pygame.draw.line(screen, (0, 0, 0), (750,600), (800, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (825,600), (875, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (900,600), (950, 600), 10)
+            letter1 = my_font.render(letters[0], True, (0, 0, 0))
+            letter2 = my_font.render(letters[1], True, (0, 0, 0))
+            letter3 = my_font.render(letters[2], True, (0, 0, 0))
             pygame.display.flip()
         elif level == 4:
             word = random.choice(words_4)
@@ -52,6 +57,10 @@ while running:
             pygame.draw.line(screen, (0, 0, 0), (825,600), (875, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (900,600), (950, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (975,600), (1025, 600), 10)
+            letter1 = my_font.render(letters[0], True, (0, 0, 0))
+            letter2 = my_font.render(letters[1], True, (0, 0, 0))
+            letter3 = my_font.render(letters[2], True, (0, 0, 0))
+            letter4 = my_font.render(letters[3], True, (0, 0, 0))
             pygame.display.flip()
         elif level == 5:
             word = random.choice(words_5)
@@ -61,6 +70,11 @@ while running:
             pygame.draw.line(screen, (0, 0, 0), (900,600), (950, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (975,600), (1025, 600), 10)
             pygame.draw.line(screen, (0, 0, 0), (1050,600), (1100, 600), 10)
+            letter1 = my_font.render(letters[0], True, (0, 0, 0))
+            letter2 = my_font.render(letters[1], True, (0, 0, 0))
+            letter3 = my_font.render(letters[2], True, (0, 0, 0))
+            letter4 = my_font.render(letters[3], True, (0, 0, 0))
+            letter5 = my_font.render(letters[4], True, (0, 0, 0))
             pygame.display.flip()
         while True:
             if fails == 6:
@@ -71,8 +85,7 @@ while running:
             print(alphabet)
             print(right)
             guess = input('Guess: ').lower()
-            guesses = list()
-            print(guess)
+            guesses = list(guess)
             letter = guess.isalpha()
             if letter == True:
                 if guess == word:
@@ -84,16 +97,35 @@ while running:
                     pass
                 for guesses in guess:
                     if guesses in letters:
-                        right.append(guesses)
-                        letters.remove(guesses)
                         try:
                             alphabet.remove(guesses)
                         except ValueError:
                             pass
+                        right.append(guesses)
+                        letters.remove(guesses)
+                        try:
+                            if letters[0] in guesses:
+                                screen.blit(letter1, (775, 550))
+                                pygame.display.update()
+                            elif letters[1] in guesses:
+                                screen.blit(letter2, (850, 550))
+                                pygame.display.update()
+                            elif letters[2] in guesses:
+                                screen.blit(letter3, (925, 550))
+                                pygame.display.update()
+                            elif letters[3] in guesses:
+                                screen.blit(letter4, (1000, 550))
+                                pygame.display.update()
+                            elif letters[4] in guesses:
+                                screen.blit(letter5, (1075, 550))
+                                pygame.display.update()
+                        except:
+                            pass
+                        
                     else:
                         try:
-                            for guesses in guess:
-                                alphabet.remove(guesses)
+                            for u in guesses:
+                                alphabet.remove(u)
                                 fails += 1
                                 hang(fails)
                         except ValueError:
